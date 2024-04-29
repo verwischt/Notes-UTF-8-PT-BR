@@ -14,6 +14,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+
 import com.chaosthedude.notes.Notes;
 import com.chaosthedude.notes.config.ConfigHandler;
 import com.chaosthedude.notes.util.FileUtils;
@@ -172,7 +179,7 @@ public class Note {
 				saveFile.getParentFile().mkdirs();
 			}
 
-			writer = new BufferedWriter(new FileWriter(saveFile));
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), StandardCharsets.UTF_8));
 			writer.write(rawText);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,7 +228,7 @@ public class Note {
 		scope = Scope.getScopeFromParentFile(file.getParentFile());
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
 			final StringBuilder builder = new StringBuilder();
 			String line = reader.readLine();
 			while (line != null) {
